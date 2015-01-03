@@ -1,0 +1,554 @@
+<html> 
+  <head>
+    <title>FaceBooklet: Program 5 </title>
+    <style>
+      body { padding: 0 2em; }
+      h1 { text-align: center; }
+	  h2 { text-align: left; }
+      table.layout > tbody > tr > td { vertical-align: top; padding: 6px; }
+      .r { text-align: right; font-family: Calibri}
+      .right { display:block; float: right; }
+      .left { display:block; float: left; }
+      .pnl { padding: 0.5em 1em; }
+	  .bold {text-align: center; font-family:Eras Bold ITC, Berlin Sans FB Demi, Calibri; font-size:300%;}
+	 
+    </style>
+  </head>
+  
+ <body>
+    
+               <!-- ===============  Variables    =============== -->
+    <variable type="FaceBooklet"   name="facebooklet"    value="new FaceBooklet()"/>
+    <variable type="ProfileViewer" name="viewer"         value="facebooklet.getProfileViewer()"/>
+    <variable type="UserProfile"   name="tmpUser"        value="null"/>
+	<variable type="Game"          name="myGame"         value="new Game()"/>
+	<variable type="GameQuestion"  name="question1"      value="new GameQuestion(myGame)"/>   
+    <variable type="boolean"       name="loggingOn"      value="true"/>
+    <variable type="boolean"       name="viewingProfile" value="false"/>
+    <variable type="boolean"       name="editingProfile" value="false"/>
+	<variable type="boolean"       name="requestSent"    value="false"/>
+	<variable type="boolean"       name="viewingAnotherProfile" value="false"/>
+	<variable type="boolean"       name="viewingWall" 			value="false"/>
+	<variable type="boolean"       name="viewingMyWall" 		value="false"/>
+	<variable type="boolean"       name="viewingAnotherWall"    value="false"/>
+	<variable type="boolean"       name="inGame"                value="false"/>
+	<variable type="boolean"   	   name="viewingReport" 	    value="false"/> 
+	<variable type="String"   	   name="friendToView" 			value="null"/> 
+	<variable type="String"   	   name="friendToConfirm" 	    value="null"/> 
+	<variable type="String"   	   name="aRequest" 	    		value="null"/> 
+	<variable type="String"   	   name="answerer" 	    		value="answerer"/> 
+	<variable type="String"   	   name="credit" 	    		value="credit"/> 
+	
+
+	
+	
+	<borderlayout>
+ <!-- ==================================North region ============================= -->
+  <north title="Welcome to FaceBooklet!" size="100px" collapsible="true" style="
+  background-color:#FF7400; font-family: cursive; font-size: xx-large"> 
+	<div><img src="smile.PNG" width="100" height="80"/> 
+	<p align="right"> You are logged in as: 
+	<text visible = "viewingProfile" value="@{facebooklet.getCurrentUser().getName()}"></text></p></div><!--this part doesn't work!-->
+    
+  
+  </north>
+  
+   <!-- ==================================West region ============================= -->
+  <west splittable="false" size="250px" style="background-color:#FF0084;">
+  <!-- ===============      Logon Panel        =============== -->
+    <panel collapsible="false" title="Login" visible="@{loggingOn}">
+    <panelchildren class="pnl">
+      <table class="layout">
+        <tr><td class="r">Name:</td><td><textbox id="username"/></td></tr>
+        <tr><td class="r">Password:</td><td><textbox id="pass"/></td></tr>
+        <tr><td></td><td><button label="Login"><attribute name="onClick">
+		prompt.setValue("");
+	    viewingProfile = facebooklet.login(username.getValue(), pass.getValue());
+	    if (viewingProfile == true)
+		{
+		loggingOn = !viewingProfile;
+	    viewer = facebooklet.getProfileViewer();
+		myGame = new Game(facebooklet.getCurrentUser());
+		question1 = new GameQuestion(myGame);
+		}
+		else
+		{loginPrompt.setValue("Sorry, login failed. Try again or create a new account.");}
+		
+	  </attribute></button>
+	  <separator spacing="12px"/>
+          <button label="Create New Account"><attribute name="onClick">
+		prompt.setValue("");
+	    viewingProfile = facebooklet.createNewUser(username.getValue(), pass.getValue());
+	    if (viewingProfile == true)
+		{
+		loggingOn = !viewingProfile;
+	    viewer = facebooklet.getProfileViewer();
+		myGame = new Game(facebooklet.getCurrentUser());
+		question1 = new GameQuestion(myGame);
+		}
+		else
+		{loginPrompt.setValue("Sorry, this combination of username and password is invalid. Try another one.");}
+	  </attribute></button>
+	  <separator spacing="12px"/>
+	  <p><text value="" id="loginPrompt"></text></p>
+	  </td></tr>
+      </table>
+		  
+    </panelchildren>
+    </panel>
+	</west>
+  
+  <!-- ==================================Center region ============================= -->
+  <center style="background-color:#FFFF33;">
+    <div style="padding:4px;">
+	
+		<!-- ===============   Game Panel   =============== -->
+			
+		<h3 visible="@{inGame}" style = "font-family:AR BERKLEY;">Your lifelong friendship starts here...</h3>
+		<table>
+		<tr><h2 visible="@{inGame}"><text id="firstQuestionCredit" value="@{question1.getCreditValue()}"/> credits</h2></tr>
+		<tr><h1 style="color:#008C00; font-family: Berlin Sans FB Demi, MV Boli"><text visible="@{inGame}"  id="firstQuestion" value="@{question1.getQuestion()}"/></h1></tr>
+		<tr></tr>
+		
+		
+		<tr></tr>
+		<tr></tr>
+		<tr>
+		<td><textbox visible="@{inGame}" cols="60" rows="10" value="@{question1.getAnswer()}"/></td>
+		</tr><tr><td><button visible="@{inGame}" label="submit answer and request credits">
+            <attribute name="onClick">
+	       requestSent = myGame.requestForCredit(viewer.getProfile(), question1);
+		   if (requestSent == true){requestCredit.setValue("request sent!");}
+		   else {requestCredit.setValue("Ooops, you two have to be friends to play this game.");}
+		   viewer.saveProfile();
+	     </attribute>
+	    </button></td>
+		<td><text visible="@{inGame}" id="requestCredit"/></td>
+		</tr>
+		</table>
+		
+		<separator spacing="40px"/>
+		
+		<button visible="@{inGame}" label="skip this question">
+           <attribute name="onClick">
+		  requestCredit.setValue("");
+		  question1 = new GameQuestion(myGame);
+	     </attribute></button><separator spacing="15px"/>
+		 
+		 <button visible="@{inGame}" label="continue answering questions">
+           <attribute name="onClick">
+		  requestCredit.setValue("");
+		  question1 = new GameQuestion(myGame);
+	     </attribute></button>
+		
+		
+		
+			
+			
+	    <!-- ===============      Wall Panel        =============== -->
+		<h3 visible="@{viewingWall}" style = "font-family:AR BERKLEY;">Friends always stay connected..</h3>
+        <window  contentStyle="overflow:auto" sizable="false" height="400px" visible="@{viewingWall}">
+		<textbox cols="60" rows="10" id="message" visible="@{viewingWall}"/>
+		
+		<button label="Post" visible="@{viewingWall}">
+          <attribute name="onClick">    
+			<!--facebooklet.getProfileViewer().getProfile().postToWall(facebooklet.getCurrentUser(), message.getValue());-->
+			viewer.getProfile().postToWall(facebooklet.getCurrentUser(), message.getValue());
+			viewer.saveProfile();
+          </attribute>
+		</button><separator spacing="40px"/> 
+		
+	
+		
+		<listbox visible="@{viewingMyWall}"  model="@{facebooklet.getCurrentUser().getFriendsToConfirm()}" selectedItem="@{friendToConfirm}">
+              <listhead><listheader label="Friend requests (CLICK ON a friend before clicking any button)"/></listhead>
+              <listitem each="@{friendRequest}">
+                <listcell>
+				<em><text value="@{friendRequest}"/></em><p>requests to be your friend.</p>
+				<button label="view profile"><attribute name="onClick">
+				facebooklet.getProfileViewer().loadProfile(friendToConfirm);
+				viewingMyWall = false;
+				viewingWall = false;
+				viewingAnotherProfile = true;
+				viewingProfile = true;
+				</attribute></button>
+				<button label="confirm"><attribute name="onClick">
+				facebooklet.getCurrentUser().addFriend(viewer.getProfileMap().get(friendToConfirm));
+				<!--tmpUser fix-->
+				tmpUser = viewer.getProfileMap().get(friendToConfirm);
+				viewer.setProfile(facebooklet.getCurrentUser());
+				viewer.saveProfile();
+				viewer.setProfile(tmpUser);
+				viewer.saveProfile();
+				</attribute></button>
+				</listcell>
+              </listitem>
+        </listbox>
+		 
+		<separator spacing="30px"/> 
+		
+		
+		<listbox visible="@{viewingMyWall}"  model="@{facebooklet.getCurrentUser().getCreditRequests()}" selectedItem="@{aRequest}">
+              <listhead><listheader label="Friendship credit requests (CLICK ON a friend before clicking any button)"/></listhead>
+              <listitem each="@{creditRequest}">
+                <listcell>
+				<em><text value="@{creditRequest}"/></em>
+				
+				<button label="add credits" visible="@{viewingMyWall}"><attribute name="onClick">
+				answerer = myGame.readAnswerer(aRequest); 
+				credit = myGame.readCredit(aRequest);
+				if (viewer.getProfileMap().get(answerer) != null)
+				{
+					if (myGame.addCredit(viewer.getProfileMap().get(answerer), credit) == true)
+					{
+						facebooklet.getCurrentUser().getCreditRequests().remove(aRequest);
+					}
+				}
+				else
+				{ 
+					friendExist.setValue("Ooops, this friend's account no longer exists!");
+				}
+				</attribute></button>
+				
+				
+				<button label="disregard" visible="@{viewingMyWall}"><attribute name="onClick">
+				facebooklet.getCurrentUser().getCreditRequests().remove(aRequest);
+				viewer.saveProfile();
+				</attribute></button>
+				
+				</listcell>
+              </listitem> 
+        </listbox>
+		
+		
+	
+		<separator spacing="10px"/> 
+		
+		<button label="view/hide my credit report" visible="@{viewingWall}">
+          <attribute name="onClick">    
+		  viewingReport = !viewingReport;
+          </attribute>
+		</button>
+		<p><text visible="@{viewingMyWall}"  value="" id="friendExist"></text></p><separator spacing="5px"/>
+		
+		
+		<grid visible="@{viewingReport}" model="@{facebooklet.getCurrentUser().getCreditReport()}">
+	<columns>
+		<column>You and ...</column>
+		<column>have ... friendship credits.</column>
+	</columns>
+
+	<rows>
+		<row each="@{item}">
+			<text value="@{item.getKey()}"/>
+			<text value="@{item.getValue()}"/>
+		</row>
+	</rows>
+	</grid>
+	
+
+		<separator spacing="30px"/>  
+		  
+		<listbox visible="@{viewingMyWall}" model="@{facebooklet.getCurrentUser().getWall()}">
+              <listhead><listheader label="@{facebooklet.getCurrentUser().getName()}"/></listhead>
+              <listitem each="@{post1}">
+                <listcell><text value="@{post1}"/></listcell>
+              </listitem>
+        </listbox>
+		
+		<listbox visible="@{viewingAnotherWall}" model="@{viewer.getProfile().getWall()}">
+              <listhead><listheader label="@{facebooklet.getProfileViewer().getProfile().getName()}"/></listhead>
+              <listitem each="@{post}">
+                <listcell><text value="@{post}"/></listcell>
+              </listitem>
+        </listbox>
+			
+		
+		</window>
+	  
+	     <!-- ===============      View Profile Panel        =============== -->
+	
+      <h1 visible="@{viewingProfile}" style = "font-family:Berlin Sans FB Demi;">Profile Viewer</h1>
+   <window  contentStyle="overflow:auto" sizable="true" height="320px" title="@{facebooklet.getProfileViewer().getProfile().getName()}"
+      visible="@{viewingProfile}">
+
+      <table class="layout">
+	    <tr><img src="@{viewer.getProfile().getPictureUrl()}" width="250" height="250"/></tr> 
+        <tr>
+            <tr><td class="r">My status:</td>
+            <td><text value="@{viewer.getProfile().getStatus()}"/></td></tr>
+			<tr><td class="r">My E-mail:</td>
+            <td><text value="@{viewer.getProfile().getEmail()}"/></td></tr>
+			<tr><td class="r">Interesting facts about me:</td>
+            <td><text value="@{viewer.getProfile().getBio()}"/></td></tr>
+			<tr><td class="r">People who I'm interested in are: </td>
+            <td><text value="@{viewer.getProfile().getPeopleInterested()}"/></td></tr>
+            <tr><td class="r"><strong>Hey there! I wanna get to know you :) </strong></td></tr>
+        </tr>
+      </table>
+ 
+    </window>
+	
+	   <!-- ===============   Edit Profile Panel   =============== -->
+   
+<panel title="Edit Profile" framable="true" visible="@{editingProfile}">
+<panelchildren>
+
+					<tabbox id="tb2" orient="vertical">
+						<tabs width="150px">
+							<tab label="My status"/>
+							<tab label="My E-mail"/>
+							<tab label="My profile picture"/>
+							<tab label="My thumbnail picture"/>
+							<tab label="My interesting facts"/>
+							<tab label="Who I'm interested in"/>
+						</tabs>
+						<tabpanels>
+							<tabpanel>My current status:<textbox cols="130"
+							value="@{viewer.getProfile().getStatus()}"/><button label="Update">
+            <attribute name="onClick">
+	       viewer.saveProfile();
+	     </attribute>
+	  </button></tabpanel>
+							<tabpanel>My new e-mail address is:<textbox cols="90"
+            value="@{viewer.getProfile().getEmail()}"/><button label="Update">
+            <attribute name="onClick">
+	       viewer.saveProfile();
+	     </attribute>
+	  </button></tabpanel>
+							<tabpanel>Upload a new profile picture(Please enter a valid URL for the picture):<textbox cols="130" 
+            value="@{viewer.getProfile().getPictureUrl()}"/><button label="Update">
+            <attribute name="onClick">
+	       viewer.saveProfile();
+	     </attribute>
+	  </button></tabpanel>
+	  <tabpanel>Upload a new thumbnail picture(Please enter a valid URL for the picture):<textbox cols="130" 
+            value="@{viewer.getProfile().getPictureThumbUrl()}"/><button label="Update">
+            <attribute name="onClick">
+	       viewer.saveProfile();
+	     </attribute>
+	  </button></tabpanel>
+	  
+	  
+							<tabpanel><table class="layout"><tr><td class="row">Write something interesting 
+		<br/>about yourself, like the 
+		<br/>top 3 interesting facts 
+		<br/>about you :)</td><td><textbox cols="60" rows="10"
+            value="@{viewer.getProfile().getBio()}"/></td><td><button label="Update">
+            <attribute name="onClick">
+	       viewer.saveProfile();
+	     </attribute>
+	  </button></td></tr></table></tabpanel>
+							<tabpanel><table class="layout"><tr><td class="row">Tell us something about the people 
+		<br/>who you want to network with, 
+		<br/>this will help them get connected 
+		<br/>with you sooner! </td><td><textbox cols="60" rows="10"
+            value="@{viewer.getProfile().getPeopleInterested()}"/></td><td><button label="Update">
+            <attribute name="onClick">
+	       viewer.saveProfile();
+	     </attribute>
+	  </button></td></tr></table></tabpanel>
+						</tabpanels>
+					</tabbox>
+</panelchildren>
+</panel>
+
+    </div>
+  </center>
+  
+    <!-- ================================== east region ============================= -->
+   <east size="240px" splittable="false" style="background-color:#4096EE;" >
+          <div class="right"><button label="logout" visible="@{viewingProfile}">
+          <attribute name="onClick">
+		  
+          facebooklet.logout();
+		  loggingOn = !loggingOn;
+		  viewingProfile = !viewingProfile;
+		  viewingAnotherProfile = false;
+		  prompt.setValue("");
+		  loginPrompt.setValue("");
+          </attribute></button><br/> 
+		  
+		  <button label="go back to profile" visible="@{viewingWall}" >
+          <attribute name="onClick">
+		  viewingProfile = true;
+		  if (facebooklet.getCurrentUser().getName() != facebooklet.getProfileViewer().getProfile().getName())
+		  {viewingAnotherProfile = true;}
+		  viewingWall = false;	  
+		  viewingMyWall = false;
+		  prompt.setValue("");
+		  
+          </attribute></button><separator spacing="10px"/> 
+		  
+		  
+		  <button label="view my profile" visible="@{editingProfile}" >
+          <attribute name="onClick">
+		  editingProfile = !editingProfile;
+		  facebooklet.getProfileViewer().setProfile(facebooklet.getCurrentUser());
+		  viewingProfile = !viewingProfile;
+		  prompt.setValue("");
+
+          </attribute></button><br/>
+		  
+		  
+		  <button label="remove my account" visible="@{editingProfile}">
+          <attribute name="onClick">
+          editingProfile = !facebooklet.removeCurrentUser();
+		  
+		  viewingProfile = false;
+		  loggingOn = true;
+		  viewingAnotherProfile = false;
+		  loginPrompt.setValue("");
+		  prompt.setValue("Your account has been removed successfully!");
+	      WebUtilities.showWebPage("index.zhtml");
+          </attribute></button><br/>
+		  
+		  
+		  
+		  <button label="back to profile" visible="@{inGame}" >
+          <attribute name="onClick">
+		  viewingProfile = true;
+		  if (facebooklet.getCurrentUser().getName() != facebooklet.getProfileViewer().getProfile().getName())
+		  {viewingAnotherProfile = true;}
+		  inGame = false;
+		  requestCredit.setValue("");
+		  </attribute></button><br/>
+		  
+		  
+		  <button label="edit my profile" visible="@{viewingProfile}">
+          <attribute name="onClick">
+          facebooklet.getProfileViewer().setProfile(facebooklet.getCurrentUser());
+		  editingProfile = !editingProfile;
+		  viewingProfile = !viewingProfile;  
+		  viewingAnotherProfile = false;
+		  prompt.setValue("");
+          </attribute></button>
+
+          <textbox id="status" cols="80" visible="@{viewingProfile}"/>
+          <separator spacing="4px"/> 
+		  <button label="update status" visible="@{viewingProfile}">
+          <attribute name="onClick">
+		   viewer.getProfile().setStatus(status.getValue())
+          </attribute></button><br/> 
+		  
+		  <button label="view my wall" visible="@{viewingProfile}" >
+          <attribute name="onClick">
+		  viewingProfile = false;
+		  viewingAnotherProfile = false;
+		  viewingWall = true;
+		  viewingMyWall = true;
+		  viewingAnotherWall = false;
+		  prompt.setValue("");
+          </attribute></button><br/>
+		  
+		  <button label="my profile" visible="@{viewingAnotherProfile}" >
+          <attribute name="onClick">
+		  viewingAnotherProfile = false;
+		  viewingProfile = true;
+		  facebooklet.getProfileViewer().setProfile(facebooklet.getCurrentUser());
+		  prompt.setValue("");
+          </attribute></button>
+		  
+		  
+		  <separator spacing="60px"/>  
+       
+	    
+	      <textbox value="enter username" id="user2view" cols="100" visible="@{viewingProfile}"/>
+          <space spacing="4px"/>
+          <button label="find this person" visible="@{viewingProfile}"><attribute name="onClick">
+		  if (viewer.getProfileMap().get(user2view.getValue()) != null)
+          {
+			facebooklet.getProfileViewer().loadProfile(user2view.getValue());
+			viewingAnotherProfile = true;	
+			prompt.setValue("");
+		  }
+		  else
+		  {
+			prompt.setValue("Oop, nothing to be seen. This user doesn't exist.");
+		  }
+          </attribute></button><br/>
+	   
+	   
+		  <p><text value="" id="prompt"></text></p>
+	
+		  <button label="send friend request" visible="@{viewingAnotherProfile}" >
+          <attribute name="onClick">  
+		  if (!(viewer.getProfile().getFriends().contains(facebooklet.getCurrentUser().getName())))
+		  {
+			facebooklet.getCurrentUser().sendFriendRequest(viewer.getProfile());
+			prompt.setValue("Friend request sent successully!");
+			viewer.saveProfile();
+		  }
+		  else
+		  {
+			prompt.setValue("You two are already friends.");
+		  }
+          </attribute></button>
+		  <br/>
+		  
+		  <button label="remove this friend" visible="@{viewingAnotherProfile}" >
+          <attribute name="onClick">
+		  if (viewer.getProfile().getFriends().contains(facebooklet.getCurrentUser().getName()))
+		  {
+			facebooklet.getCurrentUser().removeFriend(viewer.getProfile());
+			prompt.setValue("This person has been removed from your friendlist successully!");
+		  }
+		  else
+		  {
+			prompt.setValue("You two are not friends yet.");
+		  }
+          </attribute></button>
+		  <br/>
+		  
+		  <button label="view the wall" visible="@{viewingAnotherProfile}" >
+          <attribute name="onClick">
+		  if (viewer.getProfileMap().get(viewer.getProfile().getName()) == null )
+		  {prompt.setValue("Oop, nothing to be seen. This account has been removed.");} <!---this part doesn't work..-->
+		  else
+		  {
+		  viewingAnotherProfile = false;
+		  viewingProfile = false;
+		  viewingWall = true;
+		  viewingMyWall = false;
+		  viewingAnotherWall = true;
+		  prompt.setValue("");
+		  }
+          </attribute></button><br/> 
+		  
+		  <button label="answer questions to earn friendship credits" height = "100" width = "150" visible="@{viewingAnotherProfile}">
+          <attribute name="onClick">
+          editingProfile = false;
+		  viewingProfile = false;
+		  viewingAnotherProfile = false;
+		  loggingOn = false;
+		  loginPrompt.setValue("");
+		  prompt.setValue("");
+		  inGame = true;
+          </attribute></button><br/>
+	
+		  </div>
+		  
+          
+  </east>
+
+  
+  <south visible="@{viewingProfile}" size="70px" splittable ="true" >
+		<listbox model="@{viewer.getProfile().getFriends()}" selectedItem="@{friendToView}">
+              <listhead><listheader label="Friend list (CLICK ON a friend before clicking any button)"/></listhead>
+              <listitem each="@{friend}">
+                <listcell>
+				<img width="80" height="80" src = "@{viewer.getProfileMap().get(friend).getPictureThumbUrl()}"/>
+				<text value="@{friend}"/>
+				<button label="view profile"><attribute name="onClick">
+				facebooklet.getProfileViewer().loadProfile(friendToView);
+				viewingAnotherProfile = true;
+				</attribute></button>
+				</listcell>
+              </listitem>
+        </listbox>
+  </south>
+  
+		 
+  </borderlayout>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<UserProfile fieldset="true" id="341024e9-79d9-4d93-a254-ec8b258d1afa">
+  <no-comparator/>
+  <java.util.Map_-Entry>
+    <string>bio</string>
+    <null/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>creditReport</string>
+    <map id="9644d4b1-4ef4-4978-8b47-1d4450693879"/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>creditRequests</string>
+    <list id="7da4131c-3d17-4573-9e7a-25628582427b"/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>email</string>
+    <null/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>friends</string>
+    <list id="779c4ed3-9ad6-4b2d-bcd4-fab38b10f606"/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>friendsToConfirm</string>
+    <list id="d77b01d5-c1d7-4f50-a62e-3786b71a2624"/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>name</string>
+    <string>chun</string>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>password</string>
+    <null/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>peopleInterested</string>
+    <null/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>pictureThumbUrl</string>
+    <string>http://fms.mesa.k12.co.us/staff/dturner/images/QuestionMark.gif</string>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>pictureUrl</string>
+    <string>http://fms.mesa.k12.co.us/staff/dturner/images/QuestionMark.gif</string>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>status</string>
+    <null/>
+  </java.util.Map_-Entry>
+  <java.util.Map_-Entry>
+    <string>wall</string>
+    <list id="4ecdc9ac-21ae-4322-b931-ea1d76fb665d"/>
+  </java.util.Map_-Entry>
+</UserProfile>

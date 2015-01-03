@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=
+comment0.target=FaceBooklet()
+comment0.text=\r\n\ Creates\ a\ new\ Facebooklet\ object.\r\n
+comment1.params=
+comment1.target=UserProfile\ getCurrentUser()
+comment1.text=\r\n\ Get\ the\ profile\ of\ current\ user.\r\n\ @return\ the\ profile\ of\ current\ user.\r\n
+comment2.params=
+comment2.target=ProfileViewer\ getProfileViewer()
+comment2.text=\r\n\ View\ a\ user\ profile.\r\n\ @return\ the\ profile\ of\ user\ being\ viewed\ \r\n
+comment3.params=username\ password
+comment3.target=boolean\ createNewUser(java.lang.String,\ java.lang.String)
+comment3.text=\r\n\ Create\ a\ new\ profile\ for\ user\ given\ username\ and\ password.\r\n\ @param\ username\ inputed\ user\ name\ \r\n\ @param\ password\ the\ corresponding\ password\r\n\ @return\ whether\ or\ not\ a\ new\ profile\ is\ successfully\ created\r\n
+comment4.params=
+comment4.target=boolean\ removeCurrentUser()
+comment4.text=\r\n\ Remove\ current\ user\ profile.\r\n\ @return\ whether\ or\ not\ the\ current\ user's\ profile\ \r\n\ is\ successfully\ removed.\r\n
+comment5.params=username\ password
+comment5.target=boolean\ login(java.lang.String,\ java.lang.String)
+comment5.text=\r\n\ Log\ in\ to\ the\ Facebooklet\ i.e.\ set\ current\ user\ to\ the\r\n\ user\ indicated\ profile.\r\n\ @param\ username\ user\ name\ the\ user\ wants\ to\ log\ in\ with\r\n\ @param\ password\ the\ corresponding\ password\r\n\ @return\ whether\ or\ not\ the\ login\ is\ successful\r\n
+comment6.params=
+comment6.target=void\ logout()
+comment6.text=\r\n\ Log\ out\ of\ Facebooklet\ i.e.\ clear\ all\ information\ for\ this\r\n\ user\ in\ Facebooklet.\r\n
+numComments=7

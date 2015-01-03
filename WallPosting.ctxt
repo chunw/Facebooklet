@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=
+comment0.target=WallPosting()
+comment0.text=\r\n\ Creates\ a\ new\ WallPosting\ object.\r\n
+comment1.params=author\ newMessage
+comment1.target=WallPosting(UserProfile,\ java.lang.String)
+comment1.text=\r\n\ Creates\ a\ new\ WallPosting\ object.\r\n\ @param\ author\ the\ author\ of\ the\ post.\r\n\ @param\ newMessage\ the\ message\ of\ the\ post.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getMessage()
+comment2.text=\r\n\ Get\ the\ author's\ message.\r\n\ @return\ the\ author's\ message.\r\n
+comment3.params=
+comment3.target=java.util.Date\ getDate()
+comment3.text=\r\n\ Get\ the\ date.\r\n\ @return\ the\ date.\r\n
+comment4.params=
+comment4.target=java.lang.String\ getAuthorName()
+comment4.text=\r\n\ Get\ the\ author\ name.\r\n\ @return\ the\ author\ name.\r\n
+comment5.params=
+comment5.target=UserProfile\ getAuthor()
+comment5.text=\r\n\ Get\ the\ author's\ user\ profile.\r\n\ @return\ the\ author's\ user\ profile.\r\n
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment6.text=\r\n\ Generates\ a\ Html\ representation\ of\ post,\ which\ consists\ of\r\n\ a\ thumbnail\ image\ of\ the\ author,\ author's\ name,\ message\ and\r\n\ post\ date.\r\n\ @return\ the\ string\ Html\ representation.\r\n
+numComments=7

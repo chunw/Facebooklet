@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=gameBeingPlayed
+comment0.target=GameQuestion(Game)
+comment0.text=\r\n\ Creates\ a\ new\ GameQuestion\ object.\r\n\ @param\ gameBeingPlayed\ the\ game\ that\ is\ \r\n\ being\ played\ by\ current\ user.\r\n
+comment1.params=
+comment1.target=java.lang.String\ getAnswerer()
+comment1.text=\r\n\ An\ accessor\ for\ the\ answerer's\ name.\r\n\ @return\ the\ answerer's\ name.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getQuestion()
+comment2.text=\r\n\ An\ accessor\ for\ the\ question.\r\n\ @return\ the\ question.\ \r\n
+comment3.params=
+comment3.target=java.lang.String\ getAnswer()
+comment3.text=\r\n\ An\ accessor\ for\ the\ answer.\r\n\ @return\ the\ answer.\ \r\n
+comment4.params=newAnswer
+comment4.target=void\ setAnswer(java.lang.String)
+comment4.text=\r\n\ An\ mutator\ for\ the\ answer.\r\n\ @param\ newAnswer\ a\ user\ input\ answer\ to\ the\ given\ question.\r\n
+comment5.params=
+comment5.target=java.lang.String\ getCreditValue()
+comment5.text=\r\n\ An\ accessor\ for\ creditValue.\r\n\ @return\ the\ creditValue.\ \r\n
+numComments=6

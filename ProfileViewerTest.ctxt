@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=
+comment0.target=ProfileViewerTest()
+comment0.text=\r\n\ Creates\ a\ new\ ProfileViewer\ test\ object.\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\ Called\ before\ every\ test\ case\ method.\r\n
+comment2.params=
+comment2.target=void\ testGetProfileMap()
+comment2.text=\r\n\ Test\ the\ accessor\ for\ the\ user\ profile\ map.\r\n
+comment3.params=
+comment3.target=void\ testSetProfile()
+comment3.text=\r\n\ Test\ the\ accessor\ and\ the\ mutator\ for\ current\ user\ profile.\r\n
+comment4.params=
+comment4.target=void\ testCreateNewProfile()
+comment4.text=\r\n\ Test\ the\ createNewProfile\ method.See\ if\ a\ new\ profile\ is\r\n\ created\ for\ a\ reasonable\ name\ and\ set\ the\ profile\ as\ \r\n\ current\ profile.\r\n
+comment5.params=
+comment5.target=void\ testSaveProfile()
+comment5.text=\r\n\ Test\ the\ saveProfile\ method.See\ if\ a\ newly\ created\ profile\ \r\n\ is\ properly\ stored\ to\ profileMap1.\r\n
+comment6.params=
+comment6.target=void\ testLoadProfile()
+comment6.text=\r\n\ Test\ the\ loadProfile\ method.See\ the\ method\ can\ look\ up\ \r\n\ the\ user\ profile\ for\ the\ given\ user\ name\ in\ profileMap,\r\n\ and\ properly\ store\ the\ profile\ as\ current\ user\ profile\ \r\n\ if\ the\ profile\ does\ exist.\r\n
+numComments=7

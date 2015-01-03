@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=
+comment0.target=FaceBookletTest()
+comment0.text=\r\n\ Creates\ a\ new\ FacebookletTest\ test\ object.\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\ Called\ before\ every\ test\ case\ method.\r\n
+comment2.params=
+comment2.target=void\ testGetCurrentUser()
+comment2.text=\r\n\ Test\ the\ accessor\ for\ currentUser.\r\n
+comment3.params=
+comment3.target=void\ testCreateNewUser()
+comment3.text=\r\n\ Test\ the\ createNewUser\ method.\r\n
+comment4.params=
+comment4.target=void\ testRemoveCurrentUser()
+comment4.text=\r\n\ Test\ the\ removeCurrentUser\ method.\r\n
+comment5.params=
+comment5.target=void\ testLogin()
+comment5.text=\r\n\ Test\ the\ login\ method.\r\n
+comment6.params=
+comment6.target=void\ testLogout()
+comment6.text=\r\n\ Test\ the\ logout\ method.\r\n
+numComments=7
